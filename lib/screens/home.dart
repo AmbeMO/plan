@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app1/components/active-workouts.dart';
 import 'package:flutter_app1/components/workouts-list.dart';
 import 'package:flutter_app1/domains/workout.dart';
+import 'package:flutter_app1/services/auth.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -19,8 +20,21 @@ class _HomePageState extends State<HomePage> {
     return Container(
       child: Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
-        appBar: AppBar(title: Text('Sport Managing // ' + (sectionIndex == 0 ?'Active' : 'Find')),
-          leading: Icon(Icons.fitness_center),),
+        appBar: AppBar(
+          title: Text('Sport Managing // ' + (sectionIndex == 0 ?'Active' : 'Find')),
+          leading: Icon(Icons.fitness_center),
+          actions: <Widget>[
+          FlatButton.icon(
+              onPressed: (){
+                AuthService().logOut();
+              },
+              icon: Icon(
+                  Icons.supervised_user_circle,
+                  color: Colors.white,
+                        ),
+                  label: SizedBox.shrink())
+        ],
+        ),
 
         body: sectionIndex == 0 ? ActiveWorkouts() : WorkoutsList(),
         bottomNavigationBar: BottomNavigationBar(

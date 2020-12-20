@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_app1/domains/user.dart';
+import 'package:flutter_app1/screens/auth.dart';
 
 class AuthService{
   final FirebaseAuth _fAuth = FirebaseAuth.instance;
@@ -10,6 +11,7 @@ class AuthService{
       User user = result.user;
       return Us.fromFirebase(user);
     }catch(e){
+      print(e);
       return null;
     }
   }
@@ -20,6 +22,7 @@ class AuthService{
       User user = result.user;
       return Us.fromFirebase(user);
     }catch(e){
+      print(e);
       return null;
     }
   }

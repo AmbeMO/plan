@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app1/domains/user.dart';
+import 'package:flutter_app1/services/auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 class AuthorizationPage extends StatefulWidget{
   AuthorizationPage({Key key}) : super(key: key);
@@ -14,6 +19,7 @@ class _AuthorizationPageState extends State<AuthorizationPage>{
   String _password;
   bool showLogin = true;
 
+  AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +27,7 @@ class _AuthorizationPageState extends State<AuthorizationPage>{
 
     Widget _logo(){
       return Padding(
-        padding: EdgeInsets.only(top: 100),
+        padding: EdgeInsets.only(top: 50),
         child: Container(
           child: Align(
             child: Text('Sport managing', style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold, color: Colors.purple),),
@@ -32,11 +38,11 @@ class _AuthorizationPageState extends State<AuthorizationPage>{
 
     Widget _input(Icon icon, String hint, TextEditingController controller, bool obscure){
       return Container(
-        padding: EdgeInsets.only(left: 20, right: 20),
+        padding: EdgeInsets.only(left: 10, right: 10),
         child: TextField(
           controller: controller,
           obscureText: obscure,
-          style: TextStyle(fontSize: 20, color: Colors.purple),
+          style: TextStyle(fontSize: 18, color: Colors.purple),
           decoration: InputDecoration(
             hintStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.deepPurple),
             hintText: hint,
@@ -101,12 +107,51 @@ class _AuthorizationPageState extends State<AuthorizationPage>{
     }
 
 
-    void _buttonAction(){
+    void _loginButtonAction() async{
       _email = _emailController.text;
       _password = _passwordController.text;
 
-      _emailController.clear();
-      _passwordController.clear();
+      if(_email.isEmpty || _password.isEmpty) return;
+      Us user = await _authService.signInWithEmailAndPassword(_email.trim(), _password.trim());
+
+      if(user == null){
+        Fluttertoast.showToast(
+            msg: "Cant sign in",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+      }else{
+        _emailController.clear();
+        _passwordController.clear();
+      }
+    }
+
+    void _registerButtonAction() async{
+      _email = _emailController.text;
+      _password = _passwordController.text;
+
+      if(_email.isEmpty || _password.isEmpty) return;
+      Us user = await _authService.registerWithEmailAndPassword(_email.trim(), _password.trim());
+
+      if(user == null){
+        Fluttertoast.showToast(
+            msg: "Cant register u",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+      }else{
+        _emailController.clear();
+        _passwordController.clear();
+      }
+
     }
 
 
@@ -120,7 +165,7 @@ class _AuthorizationPageState extends State<AuthorizationPage>{
                 showLogin
                 ? Column(
                   children: <Widget>[
-                    _form('LOGIN', _buttonAction),
+                    _form('LOGIN', _loginButtonAction),
                     Padding(
                       padding: EdgeInsets.all(10),
                       child: GestureDetector(
@@ -136,7 +181,7 @@ class _AuthorizationPageState extends State<AuthorizationPage>{
                 )
                 : Column(
                   children: <Widget>[
-                    _form('REGISTER', _buttonAction),
+                    _form('REGISTER', _registerButtonAction),
                     Padding(
                       padding: EdgeInsets.all(10),
                       child: GestureDetector(
