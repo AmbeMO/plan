@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app1/components/active-workouts.dart';
 import 'package:flutter_app1/components/workouts-list.dart';
 import 'package:flutter_app1/domains/workout.dart';
 
@@ -18,8 +19,10 @@ class _HomePageState extends State<HomePage> {
     return Container(
       child: Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
-        appBar: AppBar(title: Text('Sport Managing'), leading: Icon(Icons.fitness_center),),
-        body: WorkoutsList(),
+        appBar: AppBar(title: Text('Sport Managing // ' + (sectionIndex == 0 ?'Active' : 'Find')),
+          leading: Icon(Icons.fitness_center),),
+
+        body: sectionIndex == 0 ? ActiveWorkouts() : WorkoutsList(),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
