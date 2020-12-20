@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "268410585246",
+    "project_id": "sport-managing-dev",
+    "storage_bucket": "sport-managing-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:268410585246:android:9593a2bbdb7de334cbfb8f",
+        "android_client_info": {
+          "package_name": "com.milana.sport"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "268410585246-kg924cs0f97ri9t9en9sp3q0ueok4eec.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgfJQZ-dp8iHovl1El834ydfWdJnEt69c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "268410585246-kg924cs0f97ri9t9en9sp3q0ueok4eec.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -110,12 +110,12 @@ class _AuthorizationPageState extends State<AuthorizationPage>{
     }
 
 
-
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
         body: Column(
           children: <Widget>[
             _logo(),
+            SizedBox(height: 100),
             (
                 showLogin
                 ? Column(
